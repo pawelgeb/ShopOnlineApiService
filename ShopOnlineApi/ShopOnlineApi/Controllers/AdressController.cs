@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopOnlineApi.Data;
+using ShopOnlineApi.Interfaces;
 using ShopOnlineApi.ModelsDTO;
 using ShopOnlineApi.ModelsSQL;
+using ShopOnlineApi.Repositories;
+using ShopOnlineApi.Services.Interfaces;
 
 namespace ShopOnlineApi.Controllers
 {
@@ -10,103 +13,38 @@ namespace ShopOnlineApi.Controllers
     [ApiController]
     public class AdressController : ControllerBase
     {
-        private readonly ShopContext context;
-        public AdressController(ShopContext shopContext)
+        private readonly IAdressService _adressService;
+        public AdressController(IAdressService adressService)
         {
-            this.context = shopContext;
+            _adressService = adressService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<AdressDTO>>> Get()
+        public async Task<IActionResult> GetAllAdress()
         {
-            return await context.Adresses
-                .Select(x => AdressDTO(x))
-                .ToListAsync();
+            return Ok(await _adressService.GetAll());
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostAdress(AdressDTO adressDTO)
+        {
+            return Ok(await _adressService.CreateItem(adressDTO));
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<AdressDTO>> GetAdressDTO(int id)
+        public async Task<IActionResult> GetAdress(int id)
         {
-            var adressItem = await context.Adresses.FindAsync(id);
-            if (adressItem == null)
-            {
-                return NotFound();
-            }
-            return AdressDTO(adressItem);
+            return Ok(await _adressService.GetItem(id));
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAdressItem(int id, AdressDTO adressDTO)
+        public async Task<IActionResult> UpdateAdress(AdressDTO adressDTO, int id)
         {
-            if (id != adressDTO.UserId)
-            {
-                return BadRequest();
-            }
-            var adress = await context.Adresses.FindAsync(id);
-            if (adress == null)
-            {
-                return NotFound();
-            }
-            adress.Id = adressDTO.Id;
-            adress.Street = adressDTO.Street;
-            adress.City = adressDTO.City;
-            adress.Country = adressDTO.Country;
-            adress.HouseNumber = adressDTO.HouseNumber;
-            adress.UserId = adressDTO.UserId;
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!AdressItemExist(id))
-            {
-                return NotFound();
-            }
+            await _adressService.UpdateItem(adressDTO, id);
             return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<AdressDTO>> CreateAdressItem(AdressDTO adressDTO)
-        {
-            var adressItem = new Adress
-            {
-                Id = adressDTO.Id,
-                Street = adressDTO.Street,
-                City = adressDTO.City,
-                Country = adressDTO.Country,
-                HouseNumber = adressDTO.HouseNumber,
-                UserId = adressDTO.UserId
-            };
-            context.Adresses.Add(adressItem);
-            await context.SaveChangesAsync();
-
-            return CreatedAtAction(
-                nameof(GetAdressDTO),
-                new { id = adressItem.Id },
-                AdressDTO(adressItem));
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdressItem(int id)
+        public async Task<IActionResult> DeleteAdress(int id)
         {
-            var adressItem = await context.Adresses.FindAsync(id);
-            if (adressItem == null)
-            {
-                return NotFound();
-            }
-            context.Adresses.Remove(adressItem);
-            await context.SaveChangesAsync();
-            return NoContent();
+            await _adressService.DeleteItem(id);
+            return Ok();
         }
-
-        private bool AdressItemExist(int id)
-        {
-            return context.Users.Any(e => e.Id == id);
-        }
-        private static AdressDTO AdressDTO(Adress adress) => new AdressDTO
-        {
-            Id = adress.Id,
-            Street = adress.Street,
-            City = adress.City,
-            Country = adress.Country,
-            HouseNumber = adress.HouseNumber,
-            UserId = adress.UserId
-        };
     }
 }
 

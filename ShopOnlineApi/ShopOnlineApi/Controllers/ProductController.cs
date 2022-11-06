@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopOnlineApi.Data;
 using ShopOnlineApi.ModelsDTO;
 using ShopOnlineApi.ModelsSQL;
+using ShopOnlineApi.Services.Interfaces;
 
 namespace ShopOnlineApi.Controllers
 {
@@ -11,101 +12,37 @@ namespace ShopOnlineApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-       private readonly ShopContext context;
-
-        public ProductController (ShopContext shopcontext)
+        private readonly IProductService _productService;
+        public ProductController(IProductService adressService)
         {
-            context = shopcontext;
+            _productService = adressService;
         }
-
-        [HttpGet]      
-        public async Task<ActionResult<List<ProductDTO>>> GetProductDTO()
+        [HttpGet]
+        public async Task<IActionResult> GetAllAdress()
         {
-            return await context.Products
-                .Select(x => ProductDTO(x))
-                .ToListAsync();
+            return Ok(await _productService.GetAll());
         }
-
+        [HttpPost]
+        public async Task<IActionResult> PostAdress(ProductDTO ProductDTO)
+        {
+            return Ok(await _productService.CreateItem(ProductDTO));
+        }
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetProductItemDTO(int id)
+        public async Task<IActionResult> GetAdress(int id)
         {
-            var productItem = await context.Products.FindAsync(id);
-            if (productItem == null)
-            {
-                return NotFound();
-            }
-            return  ProductDTO(productItem);
+            return Ok(await _productService.GetItem(id));
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProductItem(int id, ProductDTO productDTO)
+        public async Task<IActionResult> UpdateAdress(ProductDTO ProductDTO, int id)
         {
-            if (id != productDTO.Id)
-            {
-                return BadRequest();
-            }
-            var productItem = await context.Products.FindAsync(id);
-            if (productItem == null)
-            {
-                return NotFound();
-            }
-            productItem.Id = productDTO.Id;
-            productItem.Name = productDTO.Name;
-            productItem.CategoryId = productDTO.CategoryId;
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!ProductItemExist(id))
-            {
-                return NotFound();
-            }
+            await _productService.UpdateItem(ProductDTO, id);
             return NoContent();
         }
-
-        [HttpPost]
-        public async Task<ActionResult<ProductDTO>> PostProductDTO (ProductDTO productDTO)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAdress(int id)
         {
-            var productItem = new Product
-            {
-                Id = productDTO.Id,
-                Name = productDTO.Name,
-                CategoryId = productDTO.CategoryId
-            };
-
-            context.Products.Add(productItem);
-            await context.SaveChangesAsync();
-           
-            return CreatedAtAction(
-            nameof(GetProductDTO),
-            new
-            {
-             id = productItem.Id
-             },
-           ProductDTO(productItem));
+            await _productService.DeleteItem(id);
+            return Ok();
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategoryItem(int id)
-        {
-            var productItem = await context.Products.FindAsync(id);
-            if (productItem == null)
-            {
-                return NotFound();
-            }
-            context.Products.Remove(productItem);
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        private bool ProductItemExist(int id)
-        {
-            return context.Products.Any(e => e.Id == id);
-        }
-        private static ProductDTO ProductDTO(Product product) => new ProductDTO
-        {
-            Id = product.Id,
-            Name = product.Name,
-            CategoryId = product.CategoryId
-        };
     }
 }

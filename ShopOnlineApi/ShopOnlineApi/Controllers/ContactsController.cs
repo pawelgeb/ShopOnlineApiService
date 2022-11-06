@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopOnlineApi.Data;
 using ShopOnlineApi.ModelsDTO;
 using ShopOnlineApi.ModelsSQL;
+using ShopOnlineApi.Services.Interfaces;
 
 namespace ShopOnlineApi.Controllers
 {
@@ -10,107 +11,37 @@ namespace ShopOnlineApi.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        private readonly ShopContext context;
-        public ContactsController(ShopContext shopContext)
+        private readonly IContactService _contactService;
+        public ContactsController(IContactService adressService)
         {
-            context = shopContext;
+            _contactService = adressService;
         }
-        // GET: api/Contacts
         [HttpGet]
-        public async Task<ActionResult<List<ContactDTO>>> Get()
+        public async Task<IActionResult> GetAllAdress()
         {
-            return await context.Contacts
-            .Select(x => ContactDTO(x))
-            .ToListAsync();
+            return Ok(await _contactService.GetAll());
         }
-        // GET: api/Contacts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ContactDTO>> GetContact(int id)
-        {
-            var contactItem = await context.Contacts.FindAsync(id);
-            if (contactItem == null)
-            {
-                return NotFound();
-            }
-            return ContactDTO(contactItem);
-        }
-        // PUT: api/Contacts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateConctactItem(int id, ContactDTO contactDTO)
-        {
-            if (id != contactDTO.Id)
-            {
-                return BadRequest();
-            }
-            var contactItem = await context.Contacts.FindAsync(id);
-            if (contactItem == null)
-            {
-                return NotFound();
-            }
-            contactItem.Id = contactDTO.Id;
-            contactItem.EmailAdress = contactDTO.EmailAdress;
-            contactItem.PhoneNumber = contactDTO.PhoneNumber;
-            contactItem.UserId = contactDTO.UserId;
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!ContactExists(id))
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-        // POST: api/Contacts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ContactDTO>> PostContact(ContactDTO contactDTO)
+        public async Task<IActionResult> PostAdress(ContactDTO ContactDTO)
         {
-            var contactItem = new Contact
-            {
-                Id = contactDTO.Id,
-                EmailAdress = contactDTO.EmailAdress,
-                PhoneNumber = contactDTO.PhoneNumber,
-                UserId = contactDTO.UserId
-            };
-
-            context.Contacts.Add(contactItem);
-            await context.SaveChangesAsync();
-            return CreatedAtAction(
-                nameof(GetContact),
-                new
-                {
-                    id = contactItem.Id
-                },
-                ContactDTO(contactItem));
-
-            return CreatedAtAction("GetContact", new { id = contactDTO.UserId }, contactDTO);
+            return Ok(await _contactService.CreateItem(ContactDTO));
         }
-        // DELETE: api/Contacts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteContact(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAdress(int id)
         {
-            var contact = await context.Contacts.FindAsync(id);
-            if (contact == null)
-            {
-                return NotFound();
-            }
-            context.Contacts.Remove(contact);
-            await context.SaveChangesAsync();
+            return Ok(await _contactService.GetItem(id));
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAdress(ContactDTO ContactDTO, int id)
+        {
+            await _contactService.UpdateItem(ContactDTO, id);
             return NoContent();
         }
-
-        private bool ContactExists(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAdress(int id)
         {
-            return context.Contacts.Any(e => e.UserId == id);
+            await _contactService.DeleteItem(id);
+            return Ok();
         }
-        private static ContactDTO ContactDTO(Contact contact) => new ContactDTO
-        {
-            Id = contact.Id,
-            EmailAdress = contact.EmailAdress,
-            PhoneNumber = contact.PhoneNumber,
-            UserId = contact.UserId,
-        };
     }
 }

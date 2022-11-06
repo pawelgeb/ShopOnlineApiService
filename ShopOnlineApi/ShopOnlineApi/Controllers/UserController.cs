@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopOnlineApi.Data;
 using ShopOnlineApi.ModelsDTO;
@@ -10,38 +9,38 @@ namespace ShopOnlineApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _orderService = orderService;
+            _userService = userService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAdress()
         {
-            return Ok(await _orderService.GetAll());
+            return Ok(await _userService.GetAll());
         }
         [HttpPost]
-        public async Task<IActionResult> PostAdress(OrderDTO OrderDTO)
+        public async Task<IActionResult> PostAdress(UserDTO UserDTO)
         {
-            return Ok(await _orderService.CreateItem(OrderDTO));
+            return Ok(await _userService.CreateItem(UserDTO));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAdress(int id)
         {
-            return Ok(await _orderService.GetItem(id));
+            return Ok(await _userService.GetItem(id));
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAdress(OrderDTO OrderDTO, int id)
+        public async Task<IActionResult> UpdateAdress(UserDTO UserDTO, int id)
         {
-            await _orderService.UpdateItem(OrderDTO, id);
+            await _userService.UpdateItem(UserDTO, id);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAdress(int id)
         {
-            await _orderService.DeleteItem(id);
+            await _userService.DeleteItem(id);
             return Ok();
         }
     }

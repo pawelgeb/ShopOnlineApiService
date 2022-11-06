@@ -42,7 +42,6 @@ namespace ShopOnlineApi.Data
                 entity.ToTable("adress", "newshop");
 
                 entity.Property(e => e.UserId)
-                    .ValueGeneratedOnAdd()
                     .HasColumnName("user_id");
 
                 entity.Property(e => e.City).HasColumnName("city");

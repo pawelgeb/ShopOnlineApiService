@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopOnlineApi.Data;
 using ShopOnlineApi.ModelsDTO;
 using ShopOnlineApi.ModelsSQL;
+using ShopOnlineApi.Services.Interfaces;
 
 namespace ShopOnlineApi.Controllers
 {
@@ -11,109 +12,37 @@ namespace ShopOnlineApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ShopContext context;
-        
-        public CategoriesController(ShopContext shopContext)
+        private readonly ICategoryService _categoryService;
+        public CategoriesController(ICategoryService adressService)
         {
-            context = shopContext;
+            _categoryService = adressService;
         }
-
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDTO>>> GetCategory()
+        public async Task<IActionResult> GetAllAdress()
         {
-            var categories = await context.Categories
-            /*return await context.Categories*/
-            //.Where(c => c.Id == productId)
-            .Select(x => CategoryDTO(x))
-            .ToListAsync();
-            return categories;
+            return Ok(await _categoryService.GetAll());
         }
-        
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryDTO>> GetCategoryDTO(int id)
-        {
-            var categoryItem = await context.Categories.FindAsync(id);
-            if (categoryItem == null)
-            {
-                return NotFound();
-            }
-            return CategoryDTO(categoryItem);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategoriesItem(int id, CategoryDTO categoryDTO)
-        {
-            if (id != categoryDTO.Id)
-            {
-                return BadRequest();
-            }
-            var categoryItem = await context.Categories.FindAsync(id);
-            if (categoryItem == null)
-            {
-                return NotFound();
-            }
-            categoryItem.Name = categoryDTO.Name;
-            categoryItem.AddData = categoryDTO.AddData;
-            categoryItem.Empty = categoryItem.Empty;
-            categoryItem.Id = categoryItem.Id;
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!CategoryItemExist(id))
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
-
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> CreateCategoryItem (CategoryDTO categoryDTO)
+        public async Task<IActionResult> PostAdress(CategoryDTO CategoryDTO)
         {
-            var categoryItem = new Category
-            {
-                Id = categoryDTO.Id,
-                Name = categoryDTO.Name,
-                AddData = categoryDTO.AddData,
-                Empty = categoryDTO.Empty,
-
-            };
-            context.Categories.Add(categoryItem);
-            await context.SaveChangesAsync();
-
-            return CreatedAtAction(
-                nameof(GetCategoryDTO),
-                new
-                {
-                    id = categoryDTO.Id
-                },
-                CategoryDTO(categoryItem));
+            return Ok(await _categoryService.CreateItem(CategoryDTO));
         }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategoryItem(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAdress(int id)
         {
-            var categoryItem = await context.Categories.FindAsync(id);
-            if (categoryItem == null)
-            {
-                return NotFound();
-            }
-            context.Categories.Remove(categoryItem);
-            await context.SaveChangesAsync();
+            return Ok(await _categoryService.GetItem(id));
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAdress(CategoryDTO CategoryDTO, int id)
+        {
+            await _categoryService.UpdateItem(CategoryDTO, id);
             return NoContent();
         }
-
-        private bool CategoryItemExist(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAdress(int id)
         {
-            return context.Categories.Any(e => e.Id == id);
+            await _categoryService.DeleteItem(id);
+            return Ok();
         }
-
-        private static CategoryDTO CategoryDTO(Category category) => new CategoryDTO
-        {
-            Id = category.Id,
-            Name = category.Name,
-            AddData = category.AddData,
-            Empty = category.Empty
-        };
     }
 }

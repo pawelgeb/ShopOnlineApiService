@@ -9725,19 +9725,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user3\\.nuget\\packages\\": {}
+    "C:\\Users\\Paweł\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\ShopOnlineApi.csproj",
+      "projectUniqueName": "C:\\AMC\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\ShopOnlineApi.csproj",
       "projectName": "ShopOnlineApi",
-      "projectPath": "C:\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\ShopOnlineApi.csproj",
-      "packagesPath": "C:\\Users\\user3\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\obj\\",
+      "projectPath": "C:\\AMC\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\ShopOnlineApi.csproj",
+      "packagesPath": "C:\\Users\\Paweł\\.nuget\\packages\\",
+      "outputPath": "C:\\AMC\\Projects\\ShopOnlineApiService\\ShopOnlineApi\\ShopOnlineApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user3\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Paweł\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9796,8 +9796,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -9809,7 +9808,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
