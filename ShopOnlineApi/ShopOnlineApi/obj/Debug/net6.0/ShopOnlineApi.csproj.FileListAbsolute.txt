@@ -1066,3 +1066,11 @@ C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\obj\Debug\net6.
 C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\obj\Debug\net6.0\ShopOnlineApi.csproj.CopyComplete
 C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\obj\Debug\net6.0\ShopOnlineApi.genruntimeconfig.cache
 C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\obj\Debug\net6.0\ref\ShopOnlineApi.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Scrutor.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\AMC\Projects\ShopOnlineApiService\ShopOnlineApi\ShopOnlineApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
