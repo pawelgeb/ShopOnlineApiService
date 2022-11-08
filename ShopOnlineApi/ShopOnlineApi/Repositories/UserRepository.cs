@@ -6,7 +6,7 @@ using ShopOnlineApi.Repositories.Interfaces;
 
 namespace ShopOnlineApi.Repositories
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ShopContext _context;
         public UserRepository(ShopContext context)
@@ -17,7 +17,6 @@ namespace ShopOnlineApi.Repositories
         {
             var userItem = new User
             {
-                Id = userDTO.Id,
                 Name = userDTO.Name,
                 RegisterDate = userDTO.RegisterDate
             };

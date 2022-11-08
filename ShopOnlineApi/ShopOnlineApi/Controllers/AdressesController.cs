@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShopOnlineApi.Data;
-using ShopOnlineApi.Interfaces;
 using ShopOnlineApi.ModelsDTO;
-using ShopOnlineApi.ModelsSQL;
-using ShopOnlineApi.Repositories;
 using ShopOnlineApi.Services.Interfaces;
 
 namespace ShopOnlineApi.Controllers

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnlineApi.Authentication;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,9 +21,9 @@ namespace ShopOnlineApi.Controllers
         public async Task<ActionResult<AuUser>> Register(AuUserDTO request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-                user.Username = request.Username;
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
+            user.Username = request.Username;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
             return Ok(user);
         }
         [HttpPost("login")]
@@ -34,8 +33,8 @@ namespace ShopOnlineApi.Controllers
             {
                 return BadRequest("User not found");
             }
-           
-            if(!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+
+            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return BadRequest("Wrong password");
             }
@@ -51,7 +50,7 @@ namespace ShopOnlineApi.Controllers
             };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            var token = new JwtSecurityToken(claims:claims, expires:DateTime.Now.AddDays(1),signingCredentials:creds);
+            var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
@@ -59,10 +58,10 @@ namespace ShopOnlineApi.Controllers
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using(var hmac = new HMACSHA512())
+            using (var hmac = new HMACSHA512())
             {
                 passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)); 
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)

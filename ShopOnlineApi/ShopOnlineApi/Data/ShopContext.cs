@@ -34,6 +34,14 @@ namespace ShopOnlineApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Adress>()
+                .HasData(new Adress { Id = 1, City = "Lublin", Country = "Poland", Street = "Puławska", HouseNumber = 14, UserId = 1 });
+            modelBuilder.Entity<User>()
+                .HasData(new User { Id = 1, Name = "James Bond", RegisterDate = DateOnly.ParseExact("15/06/2015", "dd/MM/yyyy") });
+            modelBuilder.Entity<Category>()
+                .HasData(new Category { Id = 1, Name = "Electronics", AddData = null, Empty = false });
+            modelBuilder.Entity<Category>()
+                .HasData(new Category { Id = 2, Name = "Books", AddData = null, Empty = true });
             modelBuilder.Entity<Adress>(entity =>
             {
                 entity.HasKey(e => e.UserId)

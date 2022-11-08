@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ShopOnlineApi.ModelsSQL
+﻿namespace ShopOnlineApi.ModelsSQL
 {
     public partial class Order
     {
