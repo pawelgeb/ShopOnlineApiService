@@ -8,7 +8,7 @@ namespace ShopOnlineApi.ModelsDTO
 
         public int Id { get; set; }
         public string? Name { get; set; }
-        public DateTime? AddData { get; set; }
+        public DateOnly? AddData { get; set; }
         public bool? Empty { get; set; }
 
     }

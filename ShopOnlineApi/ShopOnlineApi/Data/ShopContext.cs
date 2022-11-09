@@ -34,14 +34,42 @@ namespace ShopOnlineApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Adress>()
-                .HasData(new Adress { Id = 1, City = "Lublin", Country = "Poland", Street = "Puławska", HouseNumber = 14, UserId = 1 });
-            modelBuilder.Entity<User>()
-                .HasData(new User { Id = 1, Name = "James Bond", RegisterDate = DateOnly.ParseExact("15/06/2015", "dd/MM/yyyy") });
-            modelBuilder.Entity<Category>()
-                .HasData(new Category { Id = 1, Name = "Electronics", AddData = null, Empty = false });
-            modelBuilder.Entity<Category>()
-                .HasData(new Category { Id = 2, Name = "Books", AddData = null, Empty = true });
+            modelBuilder.Entity<Adress>().HasData(
+                new {Id = 1, City = "Lublin", Country = "Poland", Street ="Puławska", HouseNumber = 14, UserId = 1 },
+                new {Id = 2, City = "Kraków", Country = "Poland", Street ="Zielona", HouseNumber = 12, UserId = 2},
+                new {Id = 3, City = "Gdańsk", Country = "Poland", Street ="Lipowa", HouseNumber = 19, UserId = 3},
+                new {Id = 4, City = "Gdynia", Country = "Poland", Street ="Sosnowa", HouseNumber = 95, UserId = 4},
+                new {Id = 5, City = "Liverpool", Country = "United Kingdom", Street = "Sunny Street", HouseNumber = 44, UserId = 5},
+                new {Id = 6, City = "Saloniki", Country = "Greece", Street = "Athens Street", HouseNumber = 66, UserId = 6},
+                new {Id = 7, City = "Pirovac", Country = "Croatia", Street = "Biograd Street", HouseNumber = 41, UserId = 7},
+                new {Id = 8, City = "Barcelona", Country = "Spain", Street = "Espanol Street", HouseNumber = 59, UserId = 8},
+                new {Id = 9, City = "Rome", Country = "Italy", Street = "Blue Street", HouseNumber = 77, UserId = 9},
+                new {Id = 10, City ="Prague", Country = "Czech Republic", Street = "Zatecky Street", HouseNumber = 94, UserId = 10}
+                );
+            modelBuilder.Entity<Category>().HasData(
+                new { Id = 1, Name = "Books", AddData = 2018-09-04, Empty = false},
+                new { Id = 2, Name = "Newspappers", AddData = 2021 - 10 - 05, Empty = false },
+                new { Id = 3, Name = "Audibooks", AddData = 2022 - 08 - 04, Empty = false },
+                new { Id = 4, Name = "Toys", AddData = 2020 - 07 - 15, Empty = false },
+                new { Id = 5, Name = "Cd's", AddData = 2022 -12 - 06, Empty = false },
+                new { Id = 6, Name = "Games", AddData = 2020 - 12 - 30, Empty = false },
+                new { Id = 7, Name = "Others", AddData = 2022 - 10 - 06, Empty = false }
+                );
+            //modelBuilder.Entity<User>()
+            //    .HasData(new User { Id = 1, Name = "James Bond", RegisterDate = DateOnly.ParseExact("15/06/2015", "dd/MM/yyyy") });
+            modelBuilder.Entity<Contact>().HasData(
+                new {Id = 1, PhoneNumber = "+48 858 495 321", EmailAdress = "robercik1234@xd.com", UserId = 1 },
+                new { Id = 2, PhoneNumber = "+48 842 412 123", EmailAdress = "pablo@xd.com", UserId = 2 },
+                new { Id = 3, PhoneNumber = "+48 555 491 978", EmailAdress = "natalka33@xp.com", UserId = 3 },
+                new { Id = 4, PhoneNumber = "+48 123 412 777", EmailAdress = "kasia_95@vista.com", UserId = 4 },
+                new { Id = 5, PhoneNumber = "+55 495 455 890", EmailAdress = "brad555@ad.com", UserId = 5 },
+                new { Id = 6, PhoneNumber = "+44 855 546 999", EmailAdress = "paula@cx.com", UserId = 6 },
+                new { Id = 7, PhoneNumber = "+32 859 123 001", EmailAdress = "kathrina@kp.com", UserId = 7 },
+                new { Id = 8, PhoneNumber = "+34 787 562 123", EmailAdress = "robercik1234@qr.com", UserId = 8 },
+                new { Id = 9, PhoneNumber = "+31 898 495 345", EmailAdress = "robercik1234@gr.com", UserId = 9 },
+                new { Id = 10, PhoneNumber = "+22 838 495 312", EmailAdress = "robercik1234@gd.com", UserId = 10 }
+                );
+
             modelBuilder.Entity<Adress>(entity =>
             {
                 entity.HasKey(e => e.UserId)
