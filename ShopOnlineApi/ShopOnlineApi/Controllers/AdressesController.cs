@@ -40,6 +40,7 @@ namespace ShopOnlineApi.Controllers
         public async Task<IActionResult> DeleteAdress(int id)
         {
             await _adressService.DeleteItem(id);
+            //todo: if null return 404 Not Found
             return Ok();
         }
     }

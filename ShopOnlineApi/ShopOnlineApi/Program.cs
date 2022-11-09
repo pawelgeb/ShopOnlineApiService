@@ -12,12 +12,14 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-string dataBaseChose = "SQLL";
-
-
+string? dataBase = builder.Configuration.GetSection("DataBaseSettings:SQL").Value;
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+ .AddJsonOptions(options =>
+  {
+      options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+  });
 builder.Services.AddTransient<IAdressRepository, AdressRepository>();
 builder.Services.AddTransient<IAdressService, AdressService>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -36,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
-        Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+        Description = "Standard Authorization header using the Bearer scheme (\"{token}\")",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
@@ -57,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     }
     );
 
-if (dataBaseChose != "SQL")
+if (false)
 {
     builder.Services.AddDbContext<ShopContext>(opt => opt.UseInMemoryDatabase("ShopOnlineList"));
 }

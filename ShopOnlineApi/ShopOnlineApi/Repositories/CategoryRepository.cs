@@ -6,7 +6,7 @@ using ShopOnlineApi.Repositories.Interfaces;
 
 namespace ShopOnlineApi.Repositories
 {
-    public class CategoryRepository:ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly ShopContext _context;
         public CategoryRepository(ShopContext context)

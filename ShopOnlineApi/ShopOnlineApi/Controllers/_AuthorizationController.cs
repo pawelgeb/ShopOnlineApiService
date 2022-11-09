@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnlineApi.Authentication;
+using ShopOnlineApi.Data;
+using ShopOnlineApi.ModelsDTO;
+using ShopOnlineApi.ModelsSQL;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -13,19 +16,35 @@ namespace ShopOnlineApi.Controllers
     {
         public static AuUser user = new AuUser();
         private readonly IConfiguration _configuration;
-        public _AuthorizationController(IConfiguration configuration)
+        private readonly ShopContext _context;
+        public _AuthorizationController(IConfiguration configuration, ShopContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
         [HttpPost("register")]
-        public async Task<ActionResult<AuUser>> Register(AuUserDTO request)
+        public async Task<ActionResult<UserDTO>> Register(UserDTO user)
         {
-            CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            user.Username = request.Username;
+            var userItem = new User()
+            {
+                Login = user.Login,
+                Password = user.Password,
+                Name = user.Name,
+                RegisterDate = user.RegisterDate
+            };
+
+            _context.Users.Add(userItem);
+            await _context.SaveChangesAsync();
+            return user;
+
+            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            user.Username = user;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             return Ok(user);
         }
+
+
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(AuUserDTO request)
         {

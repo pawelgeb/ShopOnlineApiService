@@ -65,6 +65,87 @@ namespace ShopOnlineApi.Migrations
                             HouseNumber = 14,
                             Id = 1,
                             Street = "Puławska"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            City = "Kraków",
+                            Country = "Poland",
+                            HouseNumber = 12,
+                            Id = 2,
+                            Street = "Zielona"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            City = "Gdańsk",
+                            Country = "Poland",
+                            HouseNumber = 19,
+                            Id = 3,
+                            Street = "Lipowa"
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            City = "Gdynia",
+                            Country = "Poland",
+                            HouseNumber = 95,
+                            Id = 4,
+                            Street = "Sosnowa"
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            City = "Liverpool",
+                            Country = "United Kingdom",
+                            HouseNumber = 44,
+                            Id = 5,
+                            Street = "Sunny Street"
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            City = "Saloniki",
+                            Country = "Greece",
+                            HouseNumber = 66,
+                            Id = 6,
+                            Street = "Athens Street"
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            City = "Pirovac",
+                            Country = "Croatia",
+                            HouseNumber = 41,
+                            Id = 7,
+                            Street = "Biograd Street"
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            City = "Barcelona",
+                            Country = "Spain",
+                            HouseNumber = 59,
+                            Id = 8,
+                            Street = "Espanol Street"
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            City = "Rome",
+                            Country = "Italy",
+                            HouseNumber = 77,
+                            Id = 9,
+                            Street = "Blue Street"
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            City = "Prague",
+                            Country = "Czech Republic",
+                            HouseNumber = 94,
+                            Id = 10,
+                            Street = "Zatecky Street"
                         });
                 });
 
@@ -77,8 +158,8 @@ namespace ShopOnlineApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("AddData")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<DateOnly?>("AddData")
+                        .HasColumnType("date")
                         .HasColumnName("add_data");
 
                     b.Property<bool?>("Empty")
@@ -97,14 +178,51 @@ namespace ShopOnlineApi.Migrations
                         new
                         {
                             Id = 1,
+                            AddData = new DateOnly(2018, 9, 4),
                             Empty = false,
-                            Name = "Electronics"
+                            Name = "Books"
                         },
                         new
                         {
                             Id = 2,
+                            AddData = new DateOnly(2021, 10, 5),
+                            Empty = false,
+                            Name = "Newspappers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddData = new DateOnly(2022, 8, 4),
+                            Empty = false,
+                            Name = "Audibooks"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AddData = new DateOnly(2020, 7, 15),
+                            Empty = false,
+                            Name = "Toys"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AddData = new DateOnly(2022, 12, 6),
                             Empty = true,
-                            Name = "Books"
+                            Name = "Cd's"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AddData = new DateOnly(2020, 12, 30),
+                            Empty = false,
+                            Name = "Games"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AddData = new DateOnly(2022, 10, 6),
+                            Empty = true,
+                            Name = "Others"
                         });
                 });
 
@@ -133,6 +251,78 @@ namespace ShopOnlineApi.Migrations
                         .HasName("contact_pkey");
 
                     b.ToTable("contact", "newshop");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            EmailAdress = "robercik1234@xd.com",
+                            Id = 1,
+                            PhoneNumber = "+48 858 495 321"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            EmailAdress = "pablo@xd.com",
+                            Id = 2,
+                            PhoneNumber = "+48 842 412 123"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            EmailAdress = "natalka33@xp.com",
+                            Id = 3,
+                            PhoneNumber = "+48 555 491 978"
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            EmailAdress = "kasia_95@vista.com",
+                            Id = 4,
+                            PhoneNumber = "+48 123 412 777"
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            EmailAdress = "brad555@ad.com",
+                            Id = 5,
+                            PhoneNumber = "+55 495 455 890"
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            EmailAdress = "paula@cx.com",
+                            Id = 6,
+                            PhoneNumber = "+44 855 546 999"
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            EmailAdress = "kathrina@kp.com",
+                            Id = 7,
+                            PhoneNumber = "+32 859 123 001"
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            EmailAdress = "anna@qr.com",
+                            Id = 8,
+                            PhoneNumber = "+34 787 562 123"
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            EmailAdress = "peter_sql@gr.com",
+                            Id = 9,
+                            PhoneNumber = "+31 898 495 345"
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            EmailAdress = "milan_api@gd.com",
+                            Id = 10,
+                            PhoneNumber = "+22 838 495 312"
+                        });
                 });
 
             modelBuilder.Entity("ShopOnlineApi.ModelsSQL.Order", b =>
@@ -144,12 +334,12 @@ namespace ShopOnlineApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("OrderDate")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<DateOnly?>("OrderDate")
+                        .HasColumnType("date")
                         .HasColumnName("order_date");
 
-                    b.Property<double?>("Price")
-                        .HasColumnType("double precision")
+                    b.Property<int?>("Price")
+                        .HasColumnType("integer")
                         .HasColumnName("price");
 
                     b.Property<int?>("ProductId")
@@ -167,6 +357,120 @@ namespace ShopOnlineApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("orders", "newshop");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderDate = new DateOnly(2022, 3, 4),
+                            Price = 14,
+                            ProductId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderDate = new DateOnly(2022, 4, 4),
+                            Price = 111,
+                            ProductId = 2,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            OrderDate = new DateOnly(2022, 5, 6),
+                            Price = 40,
+                            ProductId = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            OrderDate = new DateOnly(2022, 6, 6),
+                            Price = 12,
+                            ProductId = 4,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            OrderDate = new DateOnly(2022, 6, 30),
+                            Price = 56,
+                            ProductId = 5,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            OrderDate = new DateOnly(2022, 7, 12),
+                            Price = 12,
+                            ProductId = 6,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            OrderDate = new DateOnly(2022, 7, 18),
+                            Price = 44,
+                            ProductId = 7,
+                            UserId = 9
+                        },
+                        new
+                        {
+                            Id = 8,
+                            OrderDate = new DateOnly(2022, 8, 31),
+                            Price = 95,
+                            ProductId = 8,
+                            UserId = 10
+                        },
+                        new
+                        {
+                            Id = 9,
+                            OrderDate = new DateOnly(2022, 9, 9),
+                            Price = 12,
+                            ProductId = 9,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            OrderDate = new DateOnly(2022, 10, 11),
+                            Price = 50,
+                            ProductId = 10,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            OrderDate = new DateOnly(2022, 10, 15),
+                            Price = 70,
+                            ProductId = 11,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 12,
+                            OrderDate = new DateOnly(2022, 10, 30),
+                            Price = 50,
+                            ProductId = 10,
+                            UserId = 9
+                        },
+                        new
+                        {
+                            Id = 13,
+                            OrderDate = new DateOnly(2022, 11, 3),
+                            Price = 95,
+                            ProductId = 8,
+                            UserId = 8
+                        },
+                        new
+                        {
+                            Id = 14,
+                            OrderDate = new DateOnly(2022, 11, 10),
+                            Price = 95,
+                            ProductId = 8,
+                            UserId = 7
+                        });
                 });
 
             modelBuilder.Entity("ShopOnlineApi.ModelsSQL.Product", b =>
@@ -191,6 +495,110 @@ namespace ShopOnlineApi.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("product", "newshop");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Name = "Harry Potter: Globet of Fire"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Name = "Dr.No"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            Name = "Easy English"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Name = "New York Times"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            Name = "Automagazine"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            Name = "Football"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            Name = "Witcher I"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 3,
+                            Name = "Golden Eye"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 4,
+                            Name = "Monopoly"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 4,
+                            Name = "Rebel"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 4,
+                            Name = "Uno"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 4,
+                            Name = "Vtech cars"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 4,
+                            Name = "Smily Play house"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 4,
+                            Name = "Doll house"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 6,
+                            Name = "Need for speed: Most Wanted"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 6,
+                            Name = "Fifa 21"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 5,
+                            Name = "Doll house"
+                        });
                 });
 
             modelBuilder.Entity("ShopOnlineApi.ModelsSQL.User", b =>
@@ -218,8 +626,62 @@ namespace ShopOnlineApi.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "James Bond",
-                            RegisterDate = new DateOnly(2015, 6, 15)
+                            Name = "Robert Lewandowski",
+                            RegisterDate = new DateOnly(2022, 1, 6)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Paweł Dawidowicz",
+                            RegisterDate = new DateOnly(2022, 1, 31)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Natalia Miłosz",
+                            RegisterDate = new DateOnly(2022, 2, 5)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Kate Ramirez",
+                            RegisterDate = new DateOnly(2022, 11, 4)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Steve Gerrard",
+                            RegisterDate = new DateOnly(2022, 5, 1)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Tommy Varcetti",
+                            RegisterDate = new DateOnly(2022, 5, 4)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Niko Kovac",
+                            RegisterDate = new DateOnly(2022, 4, 7)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Sergio Roberto",
+                            RegisterDate = new DateOnly(2020, 7, 6)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Fernando Romani",
+                            RegisterDate = new DateOnly(2021, 12, 6)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Petr Czech",
+                            RegisterDate = new DateOnly(2021, 12, 5)
                         });
                 });
 

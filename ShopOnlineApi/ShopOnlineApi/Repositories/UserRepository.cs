@@ -44,13 +44,13 @@ namespace ShopOnlineApi.Repositories
         }
         public async Task UpdateItem(UserDTO userDTO, int id)
         {
-            {
-                var userItem = await _context.Users.FindAsync(id);
-                userItem.Id = userDTO.Id;
-                userItem.Name = userDTO.Name;
-                userItem.RegisterDate = userDTO.RegisterDate;
-                await _context.SaveChangesAsync();
-            }
+
+            var userItem = await _context.Users.FindAsync(id);
+            userItem.Id = userDTO.Id;
+            userItem.Name = userDTO.Name;
+            userItem.RegisterDate = userDTO.RegisterDate;
+            await _context.SaveChangesAsync();
+
         }
         private static UserDTO UserDTO(User user) => new UserDTO
         {
